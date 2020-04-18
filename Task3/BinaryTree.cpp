@@ -36,7 +36,6 @@ void BinaryTree::Insert(int value)
         }
     }
     else firstNode = new TreeNode(value);
-    count++;
 }
 BinaryTree::TreeNode* BinaryTree::Search(int value) const
 {
@@ -75,9 +74,6 @@ void BinaryTree::Print() const
         int nodesCurrentCount = 1;
         for(int level = 1; nodesCurrentCount; level++)
         {
-            //т.к. заранее неизвестно сколько будет элементов, то резервирую пам€ть на максимально возможное число
-            //т.к. у каждой вершины максимум два потомка, то count*2
-            //и чтобы знать сколько получилось и куда присваивать, ввел переменную index
             TreeNode** newNodes = new TreeNode * [nodesCurrentCount * 2];
             int index = 0;
             cout << "¬ершины на уровне " << level << ":" << endl;
