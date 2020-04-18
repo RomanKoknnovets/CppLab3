@@ -17,6 +17,7 @@ void BinaryTree::Insert(int value)
                 if (left)
                 {
                     node = left;
+                    continue;
                 }
                 else
                 {
@@ -24,18 +25,13 @@ void BinaryTree::Insert(int value)
                     break;
                 }
             }
+            auto right = node->getRight();
+            if (right)
+                node = right;
             else
             {
-                auto right = node->getRight();
-                if (right)
-                {
-                    node = right;
-                }
-                else
-                {
-                    Insert(node, value);
-                    break;
-                }
+                Insert(node, value);
+                break;
             }
         }
     }
