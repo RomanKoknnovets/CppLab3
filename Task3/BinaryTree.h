@@ -17,6 +17,7 @@ struct BinaryTree
         TreeNode(const int value) : value(value), left(nullptr), right(nullptr) {}
         ~TreeNode()
         {
+            cout << '*';
             delete left;
             delete right;
         }
@@ -34,6 +35,7 @@ struct BinaryTree
     void Insert(int value);
     TreeNode* Search(int value) const;
     void Print() const;
+    TreeNode* getFirstNode() { return firstNode; }
 private:
     TreeNode* firstNode;
     int count;

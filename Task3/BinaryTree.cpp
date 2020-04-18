@@ -71,23 +71,33 @@ void BinaryTree::Print() const
 {
     if (firstNode)
     {
-        vector<vector<TreeNode*>> nodesToLevels(1, vector<TreeNode*>(1, firstNode));
-        for (int i = 0; nodesToLevels[i].size(); i++)
+        TreeNode** nodes = new TreeNode*[1]{ firstNode };
+        int nodesCurrentCount = 1;
+        for(int level = 1; nodesCurrentCount; level++)
         {
-            nodesToLevels.push_back(vector<TreeNode*>());
-            cout << "Вершины на уровне " << i + 1 << ":" << endl;
-            for (TreeNode* node : nodesToLevels[i])
+            //т.к. заранее неизвестно сколько будет элементов, то резервирую память на максимально возможное число
+            //т.к. у каждой вершины максимум два потомка, то count*2
+            //и чтобы знать сколько получилось и куда присваивать, ввел переменную index
+            TreeNode** newNodes = new TreeNode * [nodesCurrentCount * 2];
+            int index = 0;
+            cout << "Вершины на уровне " << level << ":" << endl;
+            for(int i = 0; i < nodesCurrentCount; i++)
             {
+                auto node = nodes[i];
                 cout << node->getValue() << ' ';
                 if (node->getLeft())
-                    nodesToLevels[i + 1].push_back(node->getLeft());
+                    newNodes[index++] = node->getLeft();
                 if (node->getRight())
-                    nodesToLevels[i + 1].push_back(node->getRight());
+                    newNodes[index++] = node->getRight();
             }
+            nodesCurrentCount = index;
+            delete[] nodes;
+            nodes = newNodes;
             cout << endl;
-            if (nodesToLevels[i + 1].size() == 0)
-                cout << "Высота дерева = " << i + 1 << endl;
+            if (index == 0)
+                cout << "Высота дерева = " << level << endl;
         }
+        delete[] nodes;
     }
     else cout << "Дерево пустое";
 }
