@@ -44,36 +44,32 @@ void BinaryTree::Insert(int value)
 }
 BinaryTree::TreeNode* BinaryTree::Search(int value) const
 {
-    auto node = firstNode;
-    while (!Search(node, value))
+    if (firstNode)
     {
-        auto nodeValue = node->getValue();
-        if (nodeValue < value)
+        auto node = firstNode;
+        while (!Search(node, value))
         {
-            auto left = node->getLeft();
-            if (left)
+            auto nodeValue = node->getValue();
+            if (nodeValue > value)
             {
-                node = left;
+                auto left = node->getLeft();
+                if (left)
+                    node = left;
+                else
+                    return nullptr;
             }
             else
             {
-                return nullptr;
+                auto right = node->getRight();
+                if (right)
+                    node = right;
+                else
+                    return nullptr;
             }
         }
-        else
-        {
-            auto right = node->getRight();
-            if (right)
-            {
-                node = right;
-            }
-            else
-            {
-                return nullptr;
-            }
-        }
+        return node;
     }
-    return node;
+    return nullptr;
 }
 void BinaryTree::Print() const
 {
