@@ -4,18 +4,24 @@
 #include "BinaryTree.h"
 using namespace std;
 
+//с рекурсией
 BinaryTree* CreateMinimalBSTnew(int* arr, int firstIndex, int lastIndex)
 {
     int count = lastIndex - firstIndex + 1;
     int val = arr[firstIndex + count / 2];
     BinaryTree* result = new BinaryTree(val);
+    //понимаю, что так создаются лишние экземпляры BinaryTree
+    //но зато без вспомогательных методов и возвращается сразу BinaryTree
     if (count != 1)
         result->getFirstNode()->setLeft(CreateMinimalBSTnew(arr, firstIndex, firstIndex + count / 2 - 1)->getFirstNode());
     if (count > 2)
         result->getFirstNode()->setRight(CreateMinimalBSTnew(arr, firstIndex + count / 2 + 1, lastIndex)->getFirstNode());
+    //если нужно, то без труда могу сделать такой же метод, но возвращающий указатель на TreeNode
+    //тогда не будет создаваться ничего лишнего, но придется добавить вспомогательный метод, оборачивающий первый TreeNode в BinaryTreе
     return result;
 }
 
+//без рекурсии
 BinaryTree* CreateMinimalBSTold(int* arr, int firstIndex, int lastIndex)
 {
     struct Interval
