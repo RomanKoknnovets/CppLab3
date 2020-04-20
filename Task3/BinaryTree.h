@@ -30,6 +30,7 @@ struct BinaryTree
     };
     BinaryTree() : firstNode(nullptr) {}
     BinaryTree(int firstValue) : firstNode(new TreeNode(firstValue)) {}
+    BinaryTree(TreeNode* node) : firstNode(node) {}
     ~BinaryTree() { delete firstNode; }
     void Insert(int value);
     TreeNode* Search(int value) const;
